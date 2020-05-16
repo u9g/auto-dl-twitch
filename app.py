@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-import os
+import os, config
 app = Flask(__name__)
 
 @app.route("/")
@@ -11,7 +11,7 @@ def main():
 def handler():
     username = request.get_data()
     username = username.decode("utf-8")
-    command = "youtube-dl -o '/mnt/hgfs/streams/" + username + "/%(title)s.%(ext)s' twitch.tv/" + username
+    command = "youtube-dl -o '" + config.path + "/" + username + "/%(title)s.%(ext)s' twitch.tv/" + username
     screened_command = "screen -dmS " + username + " " + command
     os.system(screened_command)
     print(username)
